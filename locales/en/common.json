@@ -1,5 +1,21 @@
 {
   "login": {
-    "title": "Login Page"
+    "title": "Login Page",
+    "email": "Email",
+    "password": "Password",
+    "button": "Login",
+    "loading": "Logging in..."
+  },
+  "errors": {
+    "required": "This field is required",
+    "email": {
+      "required": "Email is required",
+      "invalid": "Please enter a valid email address"
+    },
+    "password": {
+      "required": "Password is required",
+      "min": "Must be at least {{min}} characters",
+      "max": "Must be at most {{max}} characters"
+    }
   }
 }
