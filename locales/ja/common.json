@@ -57,6 +57,10 @@
     "title": "タスクの登録",
     "createError": "タスクの作成に失敗しました"
   },
+  "taskDelete": {
+    "deleteError": "タスクの削除に失敗しました",
+    "confirm": "このタスクを削除してもよろしいですか？"
+  },
   "task": {
     "title": "タイトル",
     "description": "説明",
