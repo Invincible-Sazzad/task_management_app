@@ -37,5 +37,16 @@
       "dueDateTo": "期限日まで",
       "reset": "リセット"
     }
-  } 
+  },
+  "taskDetail": {
+    "loading": "読み込み中...",
+    "error": "タスクの取得に失敗しました",
+    "notFound": "タスクが見つかりません",
+    "back": "タスク一覧へ戻る",
+    "dueDate": "期限日",
+    "completedAt": "完了日時",
+    "noDescription": "説明なし",
+    "noDueDate": "期限日なし",
+    "notCompleted": "未完了"
+  }
 }

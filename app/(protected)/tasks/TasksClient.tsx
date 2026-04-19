@@ -18,6 +18,7 @@ import { TaskParams } from "@/types/tasks";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/navigation";
 
 function getStatusColor(status: string) {
   switch (status) {
@@ -42,6 +43,7 @@ export default function TasksClient() {
   });
   const { data, loading, error } = useTasks(filters);
   const { t } = useTranslation();
+  const router = useRouter();
 
   if (loading) return <Typography>{t("taskList.loading")}</Typography>;
   if (error) return <Typography color="error">{t("taskList.error")}</Typography>;
@@ -179,6 +181,7 @@ export default function TasksClient() {
                 },
                 cursor: "pointer",
               }}
+              onClick={() => router.push(`/tasks/${task.id}`)}
             >
               <CardContent>
                 <Stack spacing={1.5}>
