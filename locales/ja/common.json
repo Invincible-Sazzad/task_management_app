@@ -1,6 +1,9 @@
 {
+  "app": {
+    "name": "タスク管理"
+  },
   "login": {
-    "title": "ログインページ",
+    "title": "タスク管理アプリ",
     "email": "メールアドレス",
     "password": "パスワード",
     "button": "ログイン",
@@ -20,7 +23,8 @@
   },
   "taskList": {
     "title": "タスク一覧",
-    "addButton": "タスクを追加",
+    "addButton": "新規作成",
+    "addButtonText": "タスク",
     "loading": "タスクを読み込み中...",
     "empty": "タスクがありません",
     "error": "タスクの読み込みに失敗しました",
@@ -55,7 +59,11 @@
   },
   "taskCreate": {
     "title": "タスクの登録",
-    "createError": "タスクの作成に失敗しました"
+    "createError": "タスクの作成に失敗しました",
+    "errors": {
+      "titleRequired": "タイトルは必須項目です",
+      "statusRequired": "ステータスは必須項目です"
+    }
   },
   "taskDelete": {
     "deleteError": "タスクの削除に失敗しました",

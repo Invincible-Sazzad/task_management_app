@@ -1,6 +1,9 @@
 {
+  "app": {
+    "name": "Task Manager"
+  },
   "login": {
-    "title": "Login Page",
+    "title": "Task Management App",
     "email": "Email",
     "password": "Password",
     "button": "Login",
@@ -21,6 +24,7 @@
   "taskList": {
     "title": "Task List",
     "addButton": "Add Task",
+    "addButtonText": "Task",
     "loading": "Loading tasks...",
     "empty": "No tasks available",
     "error": "Failed to load tasks",
@@ -53,7 +57,12 @@
     "updateError": "Failed to update task"
   },
   "taskCreate": {
-    "createError": "Failed to create task"
+    "title": "Create Task",
+    "createError": "Failed to create task",
+    "errors": {
+      "titleRequired": "Title is required",
+      "statusRequired": "Status is required"
+    }
   },
   "task": {
     "title": "Title",
