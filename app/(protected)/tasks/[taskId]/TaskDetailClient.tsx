@@ -13,10 +13,12 @@ import {
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import TaskModal from "@/components/tasks/TaskModal";
 import { useState } from "react";
 import { useUpdateTask } from "@/hooks/useUpdateTask";
+import { useTaskDelete } from "@/hooks/useTaskDelete";
 
 function getStatusColor(status: string) {
   switch (status) {
@@ -38,15 +40,24 @@ export default function TaskDetailClient({ taskId }: { taskId: string }) {
   const [openModal, setOpenModal] = useState(false);
 
   const { handleUpdateTask, data: updateData, error: updateError } = useUpdateTask();
+  const { handleDeleteTask, error: deleteError } = useTaskDelete();
 
   if (loading) return <Typography>{t("taskDetail.loading")}</Typography>;
   if (error) return <Typography color="error">{t("taskDetail.error")}</Typography>;
-  if (updateError) return <Typography color="error">{t("taskDetail.updateError")}</Typography>;
+  if (updateError) return <Typography color="error">{t("taskUpdate.updateError")}</Typography>;
+  if (deleteError) return <Typography color="error">{t("taskDelete.deleteError")}</Typography>;
 
   const task = data?.task;
 
   if (!task) {
     return <Typography>{t("taskDetail.notFound")}</Typography>;
+  }
+
+  const deleteTask = async (id: string) => {
+    await handleDeleteTask(id);
+    if (!deleteError) {
+      router.push("/tasks");
+    }
   }
 
   return (
@@ -104,17 +115,39 @@ export default function TaskDetailClient({ taskId }: { taskId: string }) {
             </Box>
           </Stack>
 
-          {task.status !== "completed" && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "4px",
+              justifyContent: "flex-start"
+            }}
+          >
+            {task.status !== "completed" && (
+              <IconButton
+                size="small"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpenModal(true);
+                }}
+              >
+                <EditIcon fontSize="small" />
+              </IconButton>
+            )}
+
             <IconButton
               size="small"
               onClick={(e) => {
-                e.preventDefault();
-                setOpenModal(true);
+                // e.preventDefault();
+                if (confirm(t("taskDelete.confirm"))) {
+                  deleteTask(task.id);
+                }
               }}
             >
-              <EditIcon fontSize="small" />
+              <DeleteIcon fontSize="small" />
             </IconButton>
-          )}
+          </Box>
+          
         </CardContent>
       </Card>
       {openModal && (
