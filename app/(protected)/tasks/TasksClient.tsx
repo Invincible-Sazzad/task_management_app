@@ -14,11 +14,14 @@ import {
   Pagination,
 } from "@mui/material";
 import { useState } from "react";
-import { TaskParams } from "@/types/tasks";
+import { CreateTaskInput, TaskParams } from "@/types/tasks";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
+import TaskModal from "@/components/tasks/TaskModal";
+import { useCreateTask } from "@/hooks/useCreateTask";
+import AddIcon from "@mui/icons-material/Add";
 
 function getStatusColor(status: string) {
   switch (status) {
@@ -44,6 +47,8 @@ export default function TasksClient() {
   const { data, loading, error } = useTasks(filters);
   const { t } = useTranslation();
   const router = useRouter();
+  const [openModal, setOpenModal] = useState(false);
+  const { handleCreateTask, error: createError } = useCreateTask();
 
   if (loading) return <Typography>{t("taskList.loading")}</Typography>;
   if (error) return <Typography color="error">{t("taskList.error")}</Typography>;
@@ -66,11 +71,37 @@ export default function TasksClient() {
     setFilters((prev) => ({ ...prev, page }));
   };
 
+  const createTask = async (task: CreateTaskInput) => {
+    await handleCreateTask(task);
+    if (!createError) {
+      setOpenModal(false);
+      router.refresh();
+    }
+  };
+
   return (
     <>
-      <Typography variant="h4" sx={{ mb: 2 }}>
-        {t("taskList.title")}
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap"
+        }}
+      >
+        <Typography variant="h4" sx={{ mb: 2 }}>
+          {t("taskList.title")}
+        </Typography>
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setOpenModal(true)}
+          startIcon={<AddIcon />}
+          sx={{ height: "40px", mb: 2 }}
+        >
+          {t("taskList.addButtonText")}
+        </Button>
+      </Box>
    
       <Box sx={{ p: 2 }}>
         {/* 🔎 FILTER FORM */}
@@ -162,6 +193,7 @@ export default function TasksClient() {
           sx={{
             display: "flex",
             flexWrap: "wrap",
+            justifyContent: { sm: "center", md: "flex-start" },
             gap: 2,
           }}
         >
@@ -169,7 +201,7 @@ export default function TasksClient() {
             <Card
               key={task.id}
               sx={{
-                width: 300,
+                width: "100%",
                 flexGrow: 1,
                 maxWidth: "360px",
                 borderRadius: 3,
@@ -233,14 +265,36 @@ export default function TasksClient() {
 
         {/* 📄 PAGINATION */}
         {pagination && pagination.pages > 1 && (
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "flex-end",
+              mt: 4
+            }}
+          >
             <Pagination
               count={pagination.pages}
               page={filters.page}
               onChange={handlePageChange}
               color="primary"
+              sx={{
+                "& ul": {
+                  justifyContent: "center",
+                },
+              }}
             />
           </Box>
+        )}
+
+        {openModal && (
+          <TaskModal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            onSubmit={(task: CreateTaskInput) => {
+              createTask(task);
+            }}
+          />
         )}
       </Box>
      </>

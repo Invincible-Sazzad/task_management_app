@@ -7,8 +7,8 @@ import { loginFormDataSchema, LoginFormData } from "@/types/auth";
 import { useTranslation } from "react-i18next";
 
 export default function LoginForm() {
-  const { mutate, isPending } = useLogin();
   const { t } = useTranslation();
+  const { mutate, isPending } = useLogin();
 
   const schema = loginFormDataSchema(t);
 
@@ -45,9 +45,7 @@ export default function LoginForm() {
     setApiError("");
 
     mutate(form, {
-      onSuccess: ({ data, token }) => {
-        console.log("Login success:", data);
-
+      onSuccess: ({ token }) => {
         if (token) {
           document.cookie = `token=${token}; path=/`;
         }
@@ -64,15 +62,21 @@ export default function LoginForm() {
     <Box
       component="form"
       onSubmit={handleSubmit}
-      sx={{ maxWidth: 400, mx: "auto", mt: 10 }}
+      sx={{ maxWidth: 400, mx: "auto" }}
     >
-      <Typography variant="h5" sx={{ mb: 2 }}>
-        Login
+      <Typography
+        variant="h5"
+        sx={{
+          mb: 2,
+          textAlign: "center",
+        }}
+      >
+        {t("login.title")}
       </Typography>
 
       <TextField
         fullWidth
-        label="Email"
+        label={t("login.email")}
         margin="normal"
         value={form.email}
         onChange={handleChange("email")}
@@ -82,7 +86,7 @@ export default function LoginForm() {
 
       <TextField
         fullWidth
-        label="Password"
+        label={t("login.password")}
         type="password"
         margin="normal"
         value={form.password}
@@ -104,7 +108,7 @@ export default function LoginForm() {
         sx={{ mt: 2 }}
         disabled={isPending}
       >
-        {isPending ? "Logging in..." : "Login"}
+        {isPending ? t("login.loading") : t("login.button")}
       </Button>
     </Box>
   );

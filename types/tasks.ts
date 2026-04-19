@@ -52,3 +52,21 @@ export const updateTaskResponseSchema = z.object({
 });
 
 export type UpdateTaskResponse = z.infer<typeof updateTaskResponseSchema>;
+
+export const createTaskInputSchema = z.object({
+  title: z.string(),
+  description: z.string().nullish(),
+  status: z.string().nullish(),
+  dueDate: z.string().nullish(),
+});
+
+export type CreateTaskInput = z.infer<typeof createTaskInputSchema>;
+
+export const createTaskResponseSchema = z.object({
+  createTask: z.object({
+    task: taskSchema,
+    errors: z.array(z.string()),
+  }),
+});
+
+export type CreateTaskResponse = z.infer<typeof createTaskResponseSchema>;

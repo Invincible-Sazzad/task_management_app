@@ -25,6 +25,11 @@ type TaskForm = {
   dueDate?: string | null;
 };
 
+type TaskFormErrors = {
+  title?: string;
+  status?: string;
+};
+
 type Props = {
   open: boolean;
   onClose: () => void;
@@ -48,6 +53,8 @@ export default function TaskModal({
     }
   );
 
+  const [errors, setErrors] = useState<TaskFormErrors>({});
+
   const { t } = useTranslation();
 
   const handleChange = <K extends keyof TaskForm>(
@@ -55,9 +62,28 @@ export default function TaskModal({
     value: TaskForm[K]
   ) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+
+    if (field in errors) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
   };
 
   const handleSubmit = () => {
+    if (initialData) {
+      onSubmit(form);
+      onClose();
+      return;
+    }
+
+    const newErrors: TaskFormErrors = {};
+    if (!form.title.trim()) newErrors.title = t("taskCreate.errors.titleRequired");
+    if (!form.status) newErrors.status = t("taskCreate.errors.statusRequired");
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     onSubmit(form);
     onClose();
   };
@@ -72,9 +98,12 @@ export default function TaskModal({
         <Stack spacing={2} sx={{ mt: 1 }}>
           <TextField
             label={t("task.title")}
+            required={!initialData}
             value={form.title}
             onChange={(e) => handleChange("title", e.target.value)}
             fullWidth
+            error={!!errors.title}
+            helperText={errors.title}
           />
 
           <TextField
@@ -89,10 +118,13 @@ export default function TaskModal({
           <TextField
             select
             label={t("task.status")}
+            required={!initialData}
             value={form.status}
             onChange={(e) =>
               handleChange("status", e.target.value as TaskStatus)
             }
+            error={!!errors.status}
+            helperText={errors.status}
           >
             <MenuItem value="pending">{t("task.statusOptions.pending")}</MenuItem>
             <MenuItem value="in_progress">{t("task.statusOptions.in_progress")}</MenuItem>
@@ -112,7 +144,7 @@ export default function TaskModal({
         </Stack>
       </DialogContent>
 
-      <DialogActions>
+      <DialogActions sx={{ px: 3 }}>
         <Button onClick={onClose}>{t("modal.cancel")}</Button>
         <Button variant="contained" onClick={handleSubmit}>
           {form.id ? t("modal.updateButton") : t("modal.createButton")}
