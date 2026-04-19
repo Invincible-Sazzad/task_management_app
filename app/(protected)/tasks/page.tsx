@@ -1,9 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import TasksClient from "./TasksClient";
 
-export default function Tasks() {
+export default function TasksPage() {
   return (
     <Box sx={{ p: 4 }}>
-      <Typography variant="h4">You are logged in!</Typography>
+      <TasksClient />
     </Box>
   );
 }

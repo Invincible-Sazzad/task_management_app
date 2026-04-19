@@ -17,5 +17,25 @@
       "min": "Must be at least {{min}} characters",
       "max": "Must be at most {{max}} characters"
     }
+  },
+  "taskList": {
+    "title": "Task List",
+    "addButton": "Add Task",
+    "loading": "Loading tasks...",
+    "empty": "No tasks available",
+    "error": "Failed to load tasks",
+    "filters": {
+      "status": "Status",
+      "statusOptions": {
+        "all": "All",
+        "pending": "Pending",
+        "inProgress": "In Progress",
+        "completed": "Completed"
+      },
+      "dueDate": "Due Date",
+      "dueDateFrom": "Due Date From",
+      "dueDateTo": "Due Date To",
+      "reset": "Reset"
+    }
   }
 }
