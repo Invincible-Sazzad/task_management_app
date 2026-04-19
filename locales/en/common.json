@@ -37,5 +37,16 @@
       "dueDateTo": "Due Date To",
       "reset": "Reset"
     }
+  },
+  "taskDetail": {
+    "loading": "Loading task...",
+    "error": "Failed to load task",
+    "notFound": "Task not found",
+    "back": "Back to tasks",
+    "dueDate": "Due Date",
+    "completedAt": "Completed At",
+    "noDescription": "No description",
+    "noDueDate": "No due date",
+    "notCompleted": "Not completed"
   }
 }
