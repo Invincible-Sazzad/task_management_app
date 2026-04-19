@@ -1,9 +1,7 @@
-import Login from "../containers/login";
+import LoginForm from "@/components/auth/LoginForm";
 
 export default function Home() {
   return (
-    <div>
-      <Login />
-    </div>
+    <LoginForm />
   );
 }

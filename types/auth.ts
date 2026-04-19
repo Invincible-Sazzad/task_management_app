@@ -8,7 +8,7 @@ export interface LoginRequest {
 
 export const userSchema = z.object({
   id: z.number(),
-  email: z.string().email(),
+  email: z.string(),
 });
 
 export type User = z.infer<typeof userSchema>;
@@ -17,8 +17,7 @@ export const loginFormDataSchema = (t: TFunction) =>
   z.object({
     email: z
       .string()
-      .min(1, t("errors.email.required"))
-      .email(t("errors.email.invalid")),
+      .min(1, t("errors.email.required")),
 
     password: z
       .string()

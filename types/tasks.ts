@@ -1,0 +1,35 @@
+import { z } from "zod";
+import { paginationParamsSchema } from "./pagination";
+
+export const taskParamsSchema = paginationParamsSchema.extend({
+  status: z.enum(["pending", "in_progress", "completed"]).optional(),
+  dueDateFrom: z.string().optional(),
+  dueDateTo: z.string().optional(),
+});
+
+export type TaskParams = z.infer<typeof taskParamsSchema>;
+
+export const taskSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string().nullish(),
+  status: z.enum(["pending", "in_progress", "completed"]),
+  dueDate: z.string().nullish(),
+  completedAt: z.string().nullish(),
+});
+
+export type Task = z.infer<typeof taskSchema>;
+
+export const taskPaginationSchema = z.object({
+  tasks: z.array(taskSchema),
+  page: z.number(),
+  pages: z.number(),
+  limit: z.union([z.string(), z.number()]),
+  count: z.number(),
+});
+
+export const tasksResponseSchema = z.object({
+  tasks: taskPaginationSchema,
+});
+
+export type TasksResponse = z.infer<typeof tasksResponseSchema>;

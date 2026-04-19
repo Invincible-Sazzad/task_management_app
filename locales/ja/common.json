@@ -17,5 +17,25 @@
       "min": "{{min}}文字以上で入力してください",
       "max": "{{max}}文字以内で入力してください"
     }
-  }
+  },
+  "taskList": {
+    "title": "タスク一覧",
+    "addButton": "タスクを追加",
+    "loading": "タスクを読み込み中...",
+    "empty": "タスクがありません",
+    "error": "タスクの読み込みに失敗しました",
+    "filters": {
+      "status": "ステータス",
+      "statusOptions": {
+        "all": "すべて",
+        "pending": "未着手",
+        "inProgress": "進行中",
+        "completed": "完了"
+      },
+      "dueDate": "期限日",
+      "dueDateFrom": "期限日から",
+      "dueDateTo": "期限日まで",
+      "reset": "リセット"
+    }
+  } 
 }
