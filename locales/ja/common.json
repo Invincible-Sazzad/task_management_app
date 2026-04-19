@@ -48,5 +48,29 @@
     "noDescription": "説明なし",
     "noDueDate": "期限日なし",
     "notCompleted": "未完了"
+  },
+  "taskUpdate": {
+    "title": "タスクの更新",
+    "updateError": "タスクの更新に失敗しました"
+  },
+  "taskCreate": {
+    "title": "タスクの登録",
+    "createError": "タスクの作成に失敗しました"
+  },
+  "task": {
+    "title": "タイトル",
+    "description": "説明",
+    "status": "ステータス",
+    "dueDate": "期限日",
+    "statusOptions": {
+      "pending": "未着手",
+      "in_progress": "進行中",
+      "completed": "完了"
+    }
+  },
+  "modal": {
+    "cancel": "キャンセル",
+    "createButton": "新規作成",
+    "updateButton": "更新"
   }
 }
