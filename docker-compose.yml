@@ -1,0 +1,26 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/task_web
+      - node_modules:/task_web/node_modules
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    ports:
+      - 3000:3000
+    command: bash -c "npm run dev"
+    tty: true
+    stdin_open: true
+    networks:
+      - app_network
+    
+volumes:
+  node_modules:
+    name: task_web_node_modules
+
+networks:
+  app_network:
+    driver: bridge
