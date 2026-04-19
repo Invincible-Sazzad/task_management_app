@@ -12,6 +12,11 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
+import EditIcon from "@mui/icons-material/Edit";
+import IconButton from "@mui/material/IconButton";
+import TaskModal from "@/components/tasks/TaskModal";
+import { useState } from "react";
+import { useUpdateTask } from "@/hooks/useUpdateTask";
 
 function getStatusColor(status: string) {
   switch (status) {
@@ -30,9 +35,13 @@ export default function TaskDetailClient({ taskId }: { taskId: string }) {
   const { data, loading, error } = useTask(taskId);
   const router = useRouter();
   const { t } = useTranslation();
+  const [openModal, setOpenModal] = useState(false);
+
+  const { handleUpdateTask, data: updateData, error: updateError } = useUpdateTask();
 
   if (loading) return <Typography>{t("taskDetail.loading")}</Typography>;
   if (error) return <Typography color="error">{t("taskDetail.error")}</Typography>;
+  if (updateError) return <Typography color="error">{t("taskDetail.updateError")}</Typography>;
 
   const task = data?.task;
 
@@ -61,7 +70,7 @@ export default function TaskDetailClient({ taskId }: { taskId: string }) {
 
             {/* Status */}
             <Chip
-              label={t(`taskList.filters.statusOptions.${task.status}`)}
+              label={t(`taskList.filters.statusOptions.${task.status == "in_progress" ? "inProgress" : task.status}`)}
               color={getStatusColor(task.status)}
               sx={{ width: "fit-content" }}
             />
@@ -94,8 +103,34 @@ export default function TaskDetailClient({ taskId }: { taskId: string }) {
               </Typography>
             </Box>
           </Stack>
+
+          {task.status !== "completed" && (
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                e.preventDefault();
+                setOpenModal(true);
+              }}
+            >
+              <EditIcon fontSize="small" />
+            </IconButton>
+          )}
         </CardContent>
       </Card>
+      {openModal && (
+        <TaskModal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          initialData={task}
+          onSubmit={(updatedTask) => {
+            handleUpdateTask({...updatedTask, id: task.id });
+            setOpenModal(false);
+             if (updateData) {
+              router.refresh();
+            }
+          }}
+        />
+      )}
     </Box>
   );
 }

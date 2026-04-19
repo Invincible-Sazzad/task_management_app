@@ -48,5 +48,27 @@
     "noDescription": "No description",
     "noDueDate": "No due date",
     "notCompleted": "Not completed"
+  },
+  "taskUpdate": {
+    "updateError": "Failed to update task"
+  },
+  "taskCreate": {
+    "createError": "Failed to create task"
+  },
+  "task": {
+    "title": "Title",
+    "description": "Description",
+    "status": "Status",
+    "dueDate": "Due Date",
+    "statusOptions": {
+      "pending": "Pending",
+      "in_progress": "In Progress",
+      "completed": "Completed"
+    }
+  },
+  "modal": {
+    "cancel": "Cancel",
+    "createButton": "Create",
+    "updateButton": "Update"
   }
 }
