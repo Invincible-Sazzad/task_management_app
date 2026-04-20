@@ -3,7 +3,7 @@ This is a personal task management app frontend built with Next.
 
 ## Getting Started
 
-First, run the development server:
+Copy `.env-example` to `.env.local` and run the development server:
 
 ```bash
 docker compose build
