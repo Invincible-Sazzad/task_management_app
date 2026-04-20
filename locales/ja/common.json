@@ -13,7 +13,8 @@
     "required": "必須項目です",
     "email": {
       "required": "メールアドレスは必須項目です",
-      "invalid": "正しいメールアドレスを入力してください"
+      "invalid": "正しいメールアドレスを入力してください",
+      "max": "{{max}}文字以内で入力してください"
     },
     "password": {
       "required": "パスワードは必須項目です",
@@ -62,7 +63,9 @@
     "createError": "タスクの作成に失敗しました",
     "errors": {
       "titleRequired": "タイトルは必須項目です",
-      "statusRequired": "ステータスは必須項目です"
+      "statusRequired": "ステータスは必須項目です",
+      "titleTooLong": "タイトルは255文字以内で入力してください",
+      "descriptionTooLong": "説明は500文字以内で入力してください"
     }
   },
   "taskDelete": {

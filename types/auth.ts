@@ -17,7 +17,8 @@ export const loginFormDataSchema = (t: TFunction) =>
   z.object({
     email: z
       .string()
-      .min(1, t("errors.email.required")),
+      .min(1, t("errors.email.required"))
+      .max(255, t("errors.email.max", { max: 255 })),
 
     password: z
       .string()

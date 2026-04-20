@@ -100,7 +100,16 @@ export default function TaskModal({
             label={t("task.title")}
             required={!initialData}
             value={form.title}
-            onChange={(e) => handleChange("title", e.target.value)}
+            onChange={(e) => {
+              if (e.target.value.length > 255) {
+                setErrors((prev) => ({
+                  ...prev,
+                  title: t("taskCreate.errors.titleTooLong"),
+                }));
+                return;
+              }
+              handleChange("title", e.target.value);
+            }}
             fullWidth
             error={!!errors.title}
             helperText={errors.title}
@@ -109,7 +118,16 @@ export default function TaskModal({
           <TextField
             label={t("task.description")}
             value={form.description ?? ""}
-            onChange={(e) => handleChange("description", e.target.value)}
+            onChange={(e) => {
+              if (e.target.value.length > 500) {
+                setErrors((prev) => ({
+                  ...prev,
+                  description: t("taskCreate.errors.descriptionTooLong"),
+                }));
+                return;
+              }
+              handleChange("description", e.target.value);
+            }}
             multiline
             rows={3}
             fullWidth
